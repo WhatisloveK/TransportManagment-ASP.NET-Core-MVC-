@@ -4,10 +4,12 @@
 @{
     ViewData["Title"] = "Register";
 }
-<h2>Registration</h2>
+<h2>Register</h2>
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-controller="Account" asp-action="Register">
+            <h4>Create a new account.</h4>
+            <hr />
             <div asp-validation-summary="ModelOnly"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label><br />
@@ -21,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label><br />
-                <input asp-for="Phone" class="form-control"/>
+                <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">

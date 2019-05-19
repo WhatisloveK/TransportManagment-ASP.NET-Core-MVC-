@@ -10,12 +10,12 @@ namespace TransportManagment.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<Company> _CompanyManager;
+        private readonly UserManager<Company> _userManager;
         private readonly SignInManager<Company> _signInManager;
 
-        public AccountController(UserManager<Company> CompanyManager, SignInManager<Company> signInManager)
+        public AccountController(UserManager<Company> userManager, SignInManager<Company> signInManager)
         {
-            _CompanyManager = CompanyManager;
+            _userManager = userManager;
             _signInManager = signInManager;
         }
         #region Register
@@ -32,9 +32,12 @@ namespace TransportManagment.Controllers
             {
                 Company Company = new Company { Email = model.Email, UserName = model.Name, PhoneNumber = model.Phone };
                 // добавляем пользователя
-                var result = await _CompanyManager.CreateAsync(Company, model.Password);
+                var result = await _userManager.CreateAsync(Company, model.Password);
                 if (result.Succeeded)
                 {
+                    //setting user role
+                    await _userManager.AddToRoleAsync(Company, "user");
+                    
                     // установка куки
                     await _signInManager.SignInAsync(Company, false);
                     return RedirectToAction("Index", "Home");
@@ -95,6 +98,13 @@ namespace TransportManagment.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+
+        
+        
+       
+      
+
+   
 
     }
 }

@@ -36,13 +36,23 @@ namespace TransportManagment
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            
+
             services.AddDbContext<TrnspMngmntContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<Company, IdentityRole>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-            .AddEntityFrameworkStores<TrnspMngmntContext>();
+            //services.AddIdentity<Company, IdentityRole>()
+            //    .AddDefaultUI(UIFramework.Bootstrap4)
+            //.AddEntityFrameworkStores<TrnspMngmntContext>();
 
+            services.AddIdentity<Company, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;    // уникальный email
+                opts.User.AllowedUserNameCharacters += " ";
+            })
+         .AddEntityFrameworkStores<TrnspMngmntContext>()
+         .AddDefaultUI(UIFramework.Bootstrap4);
+         
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

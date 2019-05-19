@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<TransportManagment.Models.Transport>
+
+@{
+    ViewData["Title"] = "Transports";
+}
+
+<h1>All available transport</h1>
+
+<p>
+    <a asp-area="" asp-controller="Transports" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartOfShipping)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndOfShipping)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxVolume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TruckType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartOfShipping)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndOfShipping)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxVolume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TruckType.TruckTypeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.UserName)
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Transports" asp-action="Details" asp-route-id="@item.ID">Details</a>  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

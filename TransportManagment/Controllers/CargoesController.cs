@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,20 +12,35 @@ using TransportManagment.Models;
 
 namespace TransportManagment.Controllers
 {
+    
+    [Authorize(Roles = "user")]
     public class CargoesController : Controller
     {
         private readonly TrnspMngmntContext _context;
+        UserManager<Company> _userManager;
 
-        public CargoesController(TrnspMngmntContext context)
+        public CargoesController(TrnspMngmntContext context, UserManager<Company> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Cargoes
-        public async Task<IActionResult> Index(/*string sortOrder*/)
-        {
-            //ViewData["NameSortParm"]=String.IsNullOrEmpty(sortOrder)?
+        // GET: CargoesList
+        public async Task<IActionResult> CargoesList()
+        { 
             var trnspMngmntContext = _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType);
+            return View(await trnspMngmntContext.ToListAsync());
+        }
+        // GET: Cargoes
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.GetUserAsync(User); 
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            
+            var trnspMngmntContext = _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType).Where(i=>i.CompanyID==user.Id);
             return View(await trnspMngmntContext.ToListAsync());
         }
 
@@ -50,7 +67,7 @@ namespace TransportManagment.Controllers
         // GET: Cargoes/Create
         public IActionResult Create()
         {
-            ViewData["CompanyID"] = new SelectList(_context.Companies, "ID", "Name");
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id");
             ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID");
             return View();
         }
@@ -60,15 +77,17 @@ namespace TransportManagment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID,CompanyID")] Cargo cargo)
+        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID")] Cargo cargo)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                cargo.CompanyID = user.Id;
                 _context.Add(cargo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyID"] = new SelectList(_context.Companies, "ID", "Name", cargo.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id", cargo.CompanyID);
             ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID", cargo.TruckTypeID);
             return View(cargo);
         }
@@ -86,7 +105,7 @@ namespace TransportManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["CompanyID"] = new SelectList(_context.Companies, "ID", "Name", cargo.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id", cargo.CompanyID);
             ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID", cargo.TruckTypeID);
             return View(cargo);
         }
@@ -123,7 +142,7 @@ namespace TransportManagment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyID"] = new SelectList(_context.Companies, "ID", "Name", cargo.CompanyID);
+            ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id", cargo.CompanyID);
             ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID", cargo.TruckTypeID);
             return View(cargo);
         }

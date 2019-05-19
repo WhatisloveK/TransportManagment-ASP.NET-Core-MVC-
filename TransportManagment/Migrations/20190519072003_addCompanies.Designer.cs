@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TransportManagment.Data;
 
 namespace TransportManagment.Migrations
 {
     [DbContext(typeof(TrnspMngmntContext))]
-    partial class TrnspMngmntContextModelSnapshot : ModelSnapshot
+    [Migration("20190519072003_addCompanies")]
+    partial class addCompanies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,7 +216,7 @@ namespace TransportManagment.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("TransportManagment.Models.Transport", b =>
@@ -240,6 +242,8 @@ namespace TransportManagment.Migrations
                     b.Property<DateTime>("StartOfShipping");
 
                     b.Property<int>("TruckTypeID");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("ID");
 

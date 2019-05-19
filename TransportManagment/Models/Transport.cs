@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransportManagment.Models
 {
-    public enum Type
-    {
-        Truck,Semitrailer,DoubleRoadTrain
-    }
+    
     public class Transport
     {
         public int ID { get; set; }
@@ -34,7 +31,6 @@ namespace TransportManagment.Models
 
         [Display(Name = "Load capacity")]
         public int MaxVolume { get; set; }
-        public Type Type { get; set; }
         public int TruckTypeID { get; set; }
         public TruckType TruckType { get; set; }
 

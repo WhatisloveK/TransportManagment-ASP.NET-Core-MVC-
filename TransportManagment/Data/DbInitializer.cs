@@ -10,27 +10,27 @@ namespace TransportManagment.Data
         public static void Initialize(TrnspMngmntContext context)
         {
 
-            //context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
-            //// Look for any students.
-            //if (context.Cargoes.Any())
-            //{
-            //    return;   // DB has been seeded
-            //}
+            // Look for any students.
+            if (context.Cargoes.Any())
+            {
+                return;   // DB has been seeded
+            }
 
-            //var trucktypes = new TruckType[]
-            //{
-            //new TruckType{TruckTypeID=10,TypeName="Tilt"},
-            //new TruckType{TruckTypeID=11,TypeName="Refrigirator"},
-            //new TruckType{TruckTypeID=12,TypeName="Metal Trailer"},
-            //new TruckType{TruckTypeID=13,TypeName="Insulated Truck"},
-            //new TruckType{TruckTypeID=14,TypeName="Car transporter"}
-            //};
-            //foreach (TruckType c in trucktypes)
-            //{
-            //    context.TruckTypes.Add(c);
-            //}
-            //context.SaveChanges();
+            var trucktypes = new TruckType[]
+            {
+            new TruckType{TruckTypeID=10,TypeName="Tilt"},
+            new TruckType{TruckTypeID=11,TypeName="Refrigirator"},
+            new TruckType{TruckTypeID=12,TypeName="Metal Trailer"},
+            new TruckType{TruckTypeID=13,TypeName="Insulated Truck"},
+            new TruckType{TruckTypeID=14,TypeName="Car transporter"}
+            };
+            foreach (TruckType c in trucktypes)
+            {
+                context.TruckTypes.Add(c);
+            }
+            context.SaveChanges();
 
             //var companies = new Company[]
             //{

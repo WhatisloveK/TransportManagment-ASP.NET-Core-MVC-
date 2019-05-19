@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TransportManagment.Data;
 
 namespace TransportManagment.Migrations
 {
     [DbContext(typeof(TrnspMngmntContext))]
-    partial class TrnspMngmntContextModelSnapshot : ModelSnapshot
+    [Migration("20190519110841_edited transport")]
+    partial class editedtransport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

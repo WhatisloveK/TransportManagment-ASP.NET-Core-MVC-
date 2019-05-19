@@ -47,12 +47,6 @@
             @Html.DisplayFor(model => model.MaxVolume)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.TruckType)
         </dt>
         <dd class = "col-sm-10">
@@ -62,7 +56,7 @@
             @Html.DisplayNameFor(model => model.Company)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company.Name)
+            @Html.DisplayFor(model => model.Company.UserName)
         </dd>
     </dl>
 </div>

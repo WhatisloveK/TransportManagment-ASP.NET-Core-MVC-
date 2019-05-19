@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +12,26 @@ using TransportManagment.Models;
 
 namespace TransportManagment.Controllers
 {
+    [Authorize(Roles = "user")]
     public class TransportsController : Controller
     {
         private readonly TrnspMngmntContext _context;
-
-        public TransportsController(TrnspMngmntContext context)
+        UserManager<Company> _userManager;
+        public TransportsController(TrnspMngmntContext context, UserManager<Company> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Transports
         public async Task<IActionResult> Index()
         {
-            var trnspMngmntContext = _context.Transports.Include(t => t.Company).Include(t => t.TruckType);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            var trnspMngmntContext = _context.Transports.Include(t => t.Company).Include(t => t.TruckType).Where(i=>i.CompanyID==user.Id);
             return View(await trnspMngmntContext.ToListAsync());
         }
 
@@ -59,10 +68,12 @@ namespace TransportManagment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,MaxWeight,MaxVolume,Type,TruckTypeID,CompanyID")] Transport transport)
+        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,MaxWeight,MaxVolume,Type,TruckTypeID")] Transport transport)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                transport.CompanyID = user.Id;
                 _context.Add(transport);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

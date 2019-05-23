@@ -68,7 +68,7 @@ namespace TransportManagment.Controllers
         public IActionResult Create()
         {
             ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id");
-            ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID");
+            ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TypeName");
             return View();
         }
 
@@ -106,7 +106,7 @@ namespace TransportManagment.Controllers
                 return NotFound();
             }
             ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id", cargo.CompanyID);
-            ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID", cargo.TruckTypeID);
+            ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TypeName", cargo.TruckTypeID);
             return View(cargo);
         }
 

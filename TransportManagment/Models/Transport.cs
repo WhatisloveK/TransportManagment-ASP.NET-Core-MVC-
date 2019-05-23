@@ -31,6 +31,7 @@ namespace TransportManagment.Models
 
         [Display(Name = "Load capacity")]
         public int MaxVolume { get; set; }
+        [Display(Name ="Truck type")]
         public int TruckTypeID { get; set; }
         public TruckType TruckType { get; set; }
 

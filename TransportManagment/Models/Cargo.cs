@@ -18,6 +18,8 @@ namespace TransportManagment.Models
         public string Info { get; set; }
         public int Weight { get; set; }
         public int Volume { get; set; }
+
+        [Display(Name = "Truck type")]
         public int TruckTypeID { get; set; } 
         public TruckType TruckType { get; set; }
 

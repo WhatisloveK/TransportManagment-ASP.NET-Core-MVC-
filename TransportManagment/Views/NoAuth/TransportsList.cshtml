@@ -10,32 +10,56 @@
 <p>
     <a asp-area="" asp-controller="Transports" asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="TransportsList" method="get">
+    <div class="form-actions no-color">
+        
+        <p>
+
+            Start Shipping:&nbsp;<input type="date" name="SearchStartShipping" value="@ViewData["StartShippingFilter"]" />
+            Departure:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="SearchDeparture" value="@ViewData["DepartureFilter"]" />
+            Weight :    <input type="number" name="SearchWeight" value="@ViewData["WeightFilter"]" />
+            Company :    <input type="text" name="SearchCompany" value="@ViewData["CompanyFilter"]" />
+
+        </p>
+            <p>
+                End Shipping:&nbsp;&nbsp;<input type="date"  name="SearchEndShipping" value="@ViewData["StartShippingFilter"]" />
+                Destinastion: <input type="text"  name="SearchDestination" value="@ViewData["DestinationFilter"]" />
+                Volume :    <input type="number"  name="SearchVolume" value="@ViewData["VolumeFilter"]" />
+                Truck type :    <input type="text"  name="SearchType" value="@ViewData["TypeFilter"]" />
+                <input type="submit" value="Search" class="btn btn-default" /> |
+                <a asp-action="TransportsList">Back to Full List</a>
+            </p>
+        
+    </div>
+</form>
+
 <table class="table">
     <thead>
-        <tr>
+        <tr> 
             <th>
-                @Html.DisplayNameFor(model => model.StartOfShipping)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["StartSortParm"]">@Html.DisplayNameFor(model => model.StartOfShipping)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndOfShipping)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["EndSortParm"]">@Html.DisplayNameFor(model => model.EndOfShipping)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Departure)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["DepartureSortParm"]">@Html.DisplayNameFor(model => model.Departure)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destination)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["DestinationSortParm"]">@Html.DisplayNameFor(model => model.Destination)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxWeight)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["WeightSortParm"]">@Html.DisplayNameFor(model => model.MaxWeight)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxVolume)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["VolumeSortParm"]">@Html.DisplayNameFor(model => model.MaxVolume)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TruckType)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["TruckTypeSortParm"]">@Html.DisplayNameFor(model => model.TruckType)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Company)
+                <a asp-action="TransportsList" asp-route-sortOrder="@ViewData["CompanySortParm"]">@Html.DisplayNameFor(model => model.Company)</a>
             </th>
             <th></th>
         </tr>
@@ -63,7 +87,7 @@
                     @Html.DisplayFor(modelItem => item.MaxVolume)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TruckType.TruckTypeID)
+                    @Html.DisplayFor(modelItem => item.TruckType.TypeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Company.UserName)

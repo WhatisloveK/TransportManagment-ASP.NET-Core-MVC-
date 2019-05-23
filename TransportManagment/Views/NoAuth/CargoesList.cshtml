@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Cargoes";
+    bool IsAdmin() => User.IsInRole("admin");
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,31 +14,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StartOfShipping)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["StartSortParm"]">@Html.DisplayNameFor(model => model.StartOfShipping)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndOfShipping)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["EndSortParm"]">@Html.DisplayNameFor(model => model.EndOfShipping)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Departure)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["DepartureSortParm"]">@Html.DisplayNameFor(model => model.Departure)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destination)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["DestinationSortParm"]">@Html.DisplayNameFor(model => model.Destination)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Info)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["InfoSortParm"]">@Html.DisplayNameFor(model => model.Info)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Weight)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["WeightSortParm"]">@Html.DisplayNameFor(model => model.Weight)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Volume)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["VolumeSortParm"]">@Html.DisplayNameFor(model => model.Volume)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TruckType)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["TruckTypeSortParm"]">@Html.DisplayNameFor(model => model.TruckType)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Company)
+                <a asp-action="CargoesList" asp-route-sortOrder="@ViewData["CompanySortParm"]">@Html.DisplayNameFor(model => model.Company)</a>
             </th>
             <th></th>
         </tr>
@@ -73,7 +74,17 @@
                 @Html.DisplayFor(modelItem => item.Company.UserName)
             </td>
             <td>
-                <a asp-area="" asp-controller="Cargoes" asp-action="Details" asp-route-id="@item.ID">Details</a> 
+                 @if (IsAdmin())
+                 {  
+                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a><span> |</span>
+                     <a asp-area="" asp-controller="Cargoes" asp-action="Details" asp-route-id="@item.ID">Details</a><span> |</span>
+                     <a asp-area="" asp-controller="Cargoes" asp-action="Delete" asp-route-id="@item.ID">Delete</a> 
+                 }
+                 else
+                 {
+                    <a asp-area="" asp-controller="Cargoes" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                 }
+
             </td>
         </tr>
 }

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TransportManagment.Data;
-using TransportManagment.Models;
+using TransportManagment_DAL.Data;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Controllers
 {

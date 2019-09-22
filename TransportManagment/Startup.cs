@@ -12,8 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TransportManagment.Data;
-using TransportManagment.Models;
+
+using TransportManagment_DAL.Data;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment
 {

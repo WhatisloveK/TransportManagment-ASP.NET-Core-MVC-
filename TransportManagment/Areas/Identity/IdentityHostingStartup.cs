@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TransportManagment.Data;
-using TransportManagment.Models;
+using TransportManagment_DAL.Models;
 
 [assembly: HostingStartup(typeof(TransportManagment.Areas.Identity.IdentityHostingStartup))]
 namespace TransportManagment.Areas.Identity

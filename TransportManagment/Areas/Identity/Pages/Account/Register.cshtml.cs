@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TransportManagment.Models;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Areas.Identity.Pages.Account
 {

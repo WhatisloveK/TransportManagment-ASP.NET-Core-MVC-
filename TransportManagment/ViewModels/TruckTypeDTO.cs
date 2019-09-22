@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TransportManagment.Models
 {
-    public class TruckType
+    public class TruckTypeDTO
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TruckTypeID { get; set; }
         public string TypeName { get; set; }
-        
-        //public ICollection<Cargo> Cargos { get; set; }
     }
 }

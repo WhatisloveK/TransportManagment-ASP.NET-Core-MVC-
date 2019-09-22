@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransportManagment.Models;
+using TransportManagment_DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace TransportManagment.Data
+namespace TransportManagment_DAL.Data
 {
     public class TrnspMngmntContext : IdentityDbContext<Company>
     {

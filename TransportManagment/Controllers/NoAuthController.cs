@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TransportManagment.Data;
+using TransportManagment.Services;
+using TransportManagment_DAL.Data;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Controllers
 {
-    public class NoAuthController : Controller
+    public class NoAuthController : FormatController
     {
         private readonly TrnspMngmntContext _context;
-       
 
-        public NoAuthController(TrnspMngmntContext context)
+        UserManager<Company> _userManager;
+        CargoService _cargoService;
+
+        public NoAuthController(TrnspMngmntContext context, UserManager<Company> userManager)
         {
             _context = context;
+            _userManager = userManager;
+            _cargoService = new CargoService(context, userManager);
         }
 
         // GET: CargoesList
+        [Route("[controller]/[action]/{format?}")]
         public async Task<IActionResult> CargoesList(string sortOrder)
         {
             ViewData["StartSortParm"] = String.IsNullOrEmpty(sortOrder) ? "start_desc" : "";
@@ -30,7 +38,7 @@ namespace TransportManagment.Controllers
             ViewData["VolumeSortParm"] = sortOrder == "Volume" ? "volume_desc" : "Volume";
             ViewData["TruckTypeSortParm"] = sortOrder == "Type" ? "type_desc" : "Type";
             ViewData["CompanySortParm"] = sortOrder == "Company" ? "conpany_desc" : "Company";
-            var cargos = from s in _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType) select s;
+            var cargos = _cargoService.GetCargoDTOs(); //= from s in _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType) select s;
             switch (sortOrder)
             {
                 case "start_desc":
@@ -83,7 +91,7 @@ namespace TransportManagment.Controllers
                     break;
             }
             
-            return View(await cargos.AsNoTracking().ToListAsync());
+            return FormatOrView(cargos);
         }
 
         // GET: TransportsList

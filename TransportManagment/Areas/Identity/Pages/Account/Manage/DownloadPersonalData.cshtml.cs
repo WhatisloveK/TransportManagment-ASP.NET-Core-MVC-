@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TransportManagment.Models;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Areas.Identity.Pages.Account.Manage
 {

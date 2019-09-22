@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TransportManagment.Data;
-using TransportManagment.Models;
+
+using TransportManagment_DAL.Models;
+using TransportManagment_DAL.Data;
 
 namespace TransportManagment
 {

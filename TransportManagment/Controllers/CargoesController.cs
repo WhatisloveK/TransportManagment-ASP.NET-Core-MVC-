@@ -2,34 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TransportManagment.Data;
+
 using TransportManagment.Models;
+using TransportManagment.Services;
+using TransportManagment_DAL.Data;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Controllers
 {
     
     [Authorize(Roles = "user")]
-    public class CargoesController : Controller
+    public class CargoesController : FormatController
     {
         private readonly TrnspMngmntContext _context;
         UserManager<Company> _userManager;
+        CargoService _cargoService;
 
         public CargoesController(TrnspMngmntContext context, UserManager<Company> userManager)
         {
             _context = context;
             _userManager = userManager;
+            _cargoService = new CargoService(context, userManager);
         }
 
         // GET: CargoesList
         public async Task<IActionResult> CargoesList()
-        { 
-            var trnspMngmntContext = _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType);
-            return View(await trnspMngmntContext.ToListAsync());
+        {
+            var result = _cargoService.GetCargoDTOs();
+            return FormatOrView(result);
         }
         // GET: Cargoes
         public async Task<IActionResult> Index()
@@ -40,11 +46,14 @@ namespace TransportManagment.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
             
-            var trnspMngmntContext = _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType).Where(i=>i.CompanyID==user.Id);
-            return View(await trnspMngmntContext.ToListAsync());
+           // var trnspMngmntContext = _context.Cargoes.Include(c => c.Company).Include(c => c.TruckType).Where(i=>i.CompanyID==user.Id);
+            var result = _cargoService.GetCargoDTOs();
+            return FormatOrView(result);
         }
 
+        
         // GET: Cargoes/Details/5
+        [Route("[controller]/[action]/{id}.{format?}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,16 +61,17 @@ namespace TransportManagment.Controllers
                 return NotFound();
             }
 
-            var cargo = await _context.Cargoes
+           /* var cargo = await _context.Cargoes
                 .Include(c => c.Company)
                 .Include(c => c.TruckType)
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id);*/
+            var cargo =  _cargoService.GetDetailsAsync(id);
             if (cargo == null)
             {
                 return NotFound();
             }
 
-            return View(cargo);
+            return FormatOrView(cargo);
         }
 
         // GET: Cargoes/Create
@@ -77,7 +87,7 @@ namespace TransportManagment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID")] Cargo cargo)
+        public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID")] CargoDTO cargo)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +125,7 @@ namespace TransportManagment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID,CompanyID")] Cargo cargo)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID,CompanyID")] CargoDTO cargo)
         {
             if (id != cargo.ID)
             {

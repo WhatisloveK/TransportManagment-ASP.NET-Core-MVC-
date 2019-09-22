@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using TransportManagment.Models;
 using TransportManagment.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Controllers
 {

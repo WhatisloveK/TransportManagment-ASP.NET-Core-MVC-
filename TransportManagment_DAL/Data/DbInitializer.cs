@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransportManagment.Models;
-namespace TransportManagment.Data
+using TransportManagment_DAL.Models;
+namespace TransportManagment_DAL.Data
 {
     public class DbInitializer
     {

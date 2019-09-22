@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TransportManagment.Models;
 
 namespace TransportManagment.Models
 {
-    
-    public class Transport
+    public class TransportDTO
     {
         public int ID { get; set; }
 
@@ -31,11 +31,11 @@ namespace TransportManagment.Models
 
         [Display(Name = "Load capacity")]
         public int MaxVolume { get; set; }
-        [Display(Name ="Truck type")]
+        [Display(Name = "Truck type")]
         public int TruckTypeID { get; set; }
-        public TruckType TruckType { get; set; }
+        public TruckTypeDTO TruckType { get; set; }
 
         public string CompanyID { get; set; }
-        public Company Company { get; set; }
+        public CompanyDTO Company { get; set; }
     }
 }

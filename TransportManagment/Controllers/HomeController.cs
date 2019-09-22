@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TransportManagment.Models;
+using TransportManagment.ViewModels;
+using TransportManagment_DAL.Models;
 
 namespace TransportManagment.Controllers
 {

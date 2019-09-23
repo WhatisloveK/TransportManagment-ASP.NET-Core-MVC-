@@ -75,6 +75,7 @@ namespace TransportManagment.Controllers
         }
 
         // GET: Cargoes/Create
+
         public IActionResult Create()
         {
             ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id");
@@ -87,6 +88,7 @@ namespace TransportManagment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("[controller]/[action]/{format?}")]
         public async Task<IActionResult> Create([Bind("ID,StartOfShipping,EndOfShipping,Departure,Destination,Info,Weight,Volume,TruckTypeID")] CargoDTO cargo)
         {
             if (ModelState.IsValid)
@@ -99,7 +101,7 @@ namespace TransportManagment.Controllers
             }
             ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id", cargo.CompanyID);
             ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TruckTypeID", cargo.TruckTypeID);
-            return View(cargo);
+            return FormatOrView(cargo);
         }
 
         // GET: Cargoes/Edit/5

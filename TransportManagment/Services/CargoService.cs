@@ -48,8 +48,8 @@ namespace TransportManagment.Services
                 cfg.CreateMap<TruckType, TruckTypeDTO>();
                 cfg.CreateMap<Company, CompanyDTO>().ForMember(d => d.Cargoes, a => a.Ignore());
             });
-            var cargosDto = mappingCfg.CreateMapper().Map<IEnumerable<Cargo>, IEnumerable<CargoDTO>>(cargos);
-            return cargosDto;
+            var cargosDtos = mappingCfg.CreateMapper().Map<IEnumerable<Cargo>, IEnumerable<CargoDTO>>(cargos);
+            return cargosDtos;
         }
 
 

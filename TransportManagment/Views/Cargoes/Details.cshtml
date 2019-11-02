@@ -4,7 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!--
+    <h1>Details</h1>
 
 <div>
     <h4>Cargo</h4>
@@ -66,7 +67,78 @@
         </dd>
     </dl>
 </div>
+-->
+<!--<link href="~/css/mytype.css" rel="stylesheet">-->
+
+
+    <div class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Refrigerator</h2>
+                <p>
+                    A refrigerator truck or chiller lorry is a van or truck designed to carry perishable
+                    freight at specific temperatures. Like refrigerator cars,refrigerated trucks differ from
+                    simple insulated and ventilated vans (commonly used for transporting fruit), neither of
+                    which are fitted with cooling apparatus.
+                </p>
+
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <h2>Insulated Truck</h2>
+                <p>
+                    A vehicle whose body is equipped with a layer of insulating materials, which limits
+                    heat transfer between the inner and outer surfaces. The insulation properties of
+                    the body are characterized by the heat-transfer coefficient k.
+                </p>
+
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <h2>Carrier trailer</h2>
+                <p>
+                    A car carrier trailer, known variously as a car-carrying trailer, car hauler, auto transport
+                    trailer, etc., is a type of trailer or semi-trailer designed to efficiently transport passenger
+                    vehicles via truck.
+                </p>
+
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">
+                    @Html.DisplayFor(model => model.Company.UserName)
+                </h2>
+                <p class="lead">
+                    You've got cargo with weight @Html.DisplayFor(model => model.Weight) kg
+                    Trail type is @Html.DisplayFor(model => model.TruckType)
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="~/img/pic2.jpg" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <div id="myDiv" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+
+
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtoW26znh3xMpWu5yqdHDdKTqZEJztJ8Q"></script>

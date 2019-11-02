@@ -9,7 +9,6 @@ namespace TransportManagment.Data
     {
         public static void Initialize(TrnspMngmntContext context)
         {
-
             context.Database.EnsureCreated();
 
             // Look for any students.

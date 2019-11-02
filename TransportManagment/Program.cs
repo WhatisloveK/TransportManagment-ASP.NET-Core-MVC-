@@ -26,12 +26,13 @@ namespace TransportManagment
                 var services = scope.ServiceProvider;
                 try
                 {
+                    var context = services.GetRequiredService<TrnspMngmntContext>();
+                    DbInitializer.Initialize(context);
                     var userManager = services.GetRequiredService<UserManager<Company>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     t= RoleInitializer.InitializeAsync(userManager, rolesManager);
                     t.Wait();
-                    var context = services.GetRequiredService<TrnspMngmntContext>();
-                    DbInitializer.Initialize(context);
+                    
                 }
                 catch (Exception ex)
                 {

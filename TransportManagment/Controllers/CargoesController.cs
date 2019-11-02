@@ -67,8 +67,8 @@ namespace TransportManagment.Controllers
         // GET: Cargoes/Create
         public IActionResult Create()
         {
-            ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id");
-            ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TypeName");
+           // ViewData["CompanyID"] = new SelectList(_context.Companies, "Id", "Id");
+            //ViewData["TruckTypeID"] = new SelectList(_context.TruckTypes, "TruckTypeID", "TypeName");
             return View();
         }
 
